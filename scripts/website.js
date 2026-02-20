@@ -1,4 +1,4 @@
-import { supabase } from "/scripts/supabase.js";
+import { supabase } from "https://julianbrasse.github.io/zurichpride/scripts/supabase.js";
 
 		let styleCSS;
 		let headHTML;
