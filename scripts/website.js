@@ -370,7 +370,7 @@ function loadPage() {
 	} else {
 		bodyHTML = `
 			<header>${headerHTML}</header>
-			${errorHTML}
+			${indexHTML}
 			<footer>${footerHTML}</footer>
 		`
 	}
@@ -381,3 +381,4 @@ function loadPage() {
 
 
 loadPage();
+
