@@ -189,6 +189,9 @@ iframe {
 	}
 }
 `
+let errorHTML = `
+<h2>Error</h2>
+`
 
 let indexHTML = `
 <main>
@@ -364,10 +367,17 @@ function loadPage() {
 			${kontaktHTML}
 			<footer>${footerHTML}</footer>
 		`
+	} else {
+		bodyHTML = `
+			<header>${headerHTML}</header>
+			${errorHTML}
+			<footer>${footerHTML}</footer>
+		`
 	}
 
 	document.body.innerHTML = bodyHTML;
 	document.head.insertAdjacentHTML(`beforeend`, headHTML);
 }
+
 
 loadPage();
