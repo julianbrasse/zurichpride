@@ -1,17 +1,18 @@
 import { supabase } from "https://julianbrasse.github.io/zurichpride/scripts/supabase.js";
 
-		let styleCSS;
-		let headHTML;
-		let bodyHTML;
-		let headerHTML;
-		let footerHTML
-		let indexHTML;
-		let demonstrationHTML;
-		let festivalHTML;
-		let kalenderHTML;
-		let communityHTML;
-		let vereinHTML;
-		let kontaktHTML;
+let styleCSS;
+let styleHTML;
+let headHTML;
+let bodyHTML;
+let headerHTML;
+let footerHTML
+let indexHTML;
+let demonstrationHTML;
+let festivalHTML;
+let kalenderHTML;
+let communityHTML;
+let vereinHTML;
+let kontaktHTML;
 
 async function getElements() {
 	const { data, error } = await supabase
@@ -22,7 +23,6 @@ async function getElements() {
 		console.error(error);
 	} else {
 		let elements = Object.fromEntries(data.map(row => [row.name, row.production]));
-		styleCSS = elements.styleCSS;
 		headHTML = elements.headHTML;
 		headerHTML = elements.headerHTML;
 		footerHTML = elements.footerHTML;
@@ -33,6 +33,9 @@ async function getElements() {
 		communityHTML = elements.communityHTML;
 		vereinHTML = elements.vereinHTML;
 		kontaktHTML = elements.kontaktHTML;
+
+		styleCSS = elements.styleCSS;
+		styleHTML = `<style>${styleCSS}</style>
 	}
 }
 
@@ -57,6 +60,7 @@ async function loadPage() {
 
 	document.body.innerHTML = bodyHTML;
 	document.head.insertAdjacentHTML(`beforeend`, headHTML);
+	document.head.insertAdjacentHTML(`beforeend`, styleHTML);
 }
 
 loadPage();
