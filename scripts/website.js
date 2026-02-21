@@ -1,5 +1,7 @@
 import { supabase } from "https://julianbrasse.github.io/zurichpride/scripts/supabase.js";
 
+let version = "0.1.4"
+
 let pageMetadata;
 let pageContent;
 
@@ -8,13 +10,18 @@ let headerContent;
 let footerContent;
 let indexContent;
 let indexMetadata;
-
-let demonstrationHTML;
-let festivalHTML;
-let kalenderHTML;
-let communityHTML;
-let vereinHTML;
-let kontaktHTML;
+let demonstrationContent;
+let demonstrationMetadata;
+let festivalContent;
+let festivalMetadata;
+let kalenderContent;
+let kalenderMetadata;
+let communityContent;
+let communityMetadata;
+let vereinContent;
+let vereinMetadata;
+let kontaktContent;
+let kontaktMetadata;
 
 async function getElements() {
 	const { data, error } = await supabase
@@ -31,12 +38,13 @@ async function getElements() {
 		indexContent = elements.index_content;
 		indexMetadata = elements.index_metadata;
 
-		demonstrationHTML = elements.demonstrationHTML;
-		festivalHTML = elements.festivalHTML;
-		kalenderHTML = elements.kalenderHTML;
-		communityHTML = elements.communityHTML;
-		vereinHTML = elements.vereinHTML;
-		kontaktHTML = elements.kontaktHTML;
+		demonstrationContent = elements.demonstration_content;
+		demonstrationMetadata = elements.demonstration_metadata;
+		festivalContent = elements.festival_content;
+		kalenderContent = elements.kalender_content;
+		communityContent = elements.community_content;
+		vereinContent = elements.verein_content;
+		kontaktContent = elements.kontakt_content;
 	}
 }
 
@@ -44,9 +52,13 @@ async function loadPage() {
 	const parameters = new URLSearchParams(window.location.search);
 	await getElements();
 
-	let pageMetadata = indexMetadata;
-	let pageContent = indexContent;
-	if (parameters.has('demonstration')) { pageContent = demonstrationHTML; }
+	pageMetadata = indexMetadata;
+	pageContent = indexContent;
+
+	if (parameters.has('demonstration')) {
+		pageMetadata = demonstrationMetadata;
+		pageContent = demonstrationContent;
+	}
 	else if (parameters.has('festival')) { pageContent = festivalHTML; }
 	else if (parameters.has('kalender')) { pageContent = kalenderHTML; }
 	else if (parameters.has('community')) { pageContent = communityHTML; }
