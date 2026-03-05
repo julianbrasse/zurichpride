@@ -1,6 +1,6 @@
 import { supabase } from "https://julianbrasse.github.io/zurichpride/scripts/supabase.js";
 
-let version = "Version 0.2.0"
+let version = `Version 0.2.1`
 
 let pageMetadata;
 let pageContent;
@@ -25,8 +25,8 @@ let kontaktMetadata;
 
 async function getElements() {
 	const { data, error } = await supabase
-	.from('elements')
-	.select('name, production');
+	.from(`elements`)
+	.select(`name, production`);
 
 	if (error) {
 		console.error(error);
@@ -52,29 +52,35 @@ async function loadPage() {
 	const parameters = new URLSearchParams(window.location.search);
 	await getElements();
 
-	if (parameters.has('demonstration')) {
+	if (parameters.has(`demonstration`)) {
 		pageMetadata = demonstrationMetadata;
 		pageContent = demonstrationContent;
+		console.log("demonstration");
 	}
-	else if (parameters.has('festival')) {
+	else if (parameters.has(`festival`)) {
 		pageMetadata = festivalMetadata;
 		pageContent = festivalContent;
+		console.log("festival");
 	}
-	else if (parameters.has('kalender')) {
+	else if (parameters.has(`kalender`)) {
+		pageMetadata = kalenderMetadata;
 		pageContent = kalenderContent;
-		pageContent = kalenderMetadata;
+		console.log("kalender");
 	}
-	else if (parameters.has('community')) {
+	else if (parameters.has(`community`)) {
+		pageMetadata = communityMetadata;
 		pageContent = communityContent;
-		pageContent = communityMetadata;
+		console.log("community");
 	}
-	else if (parameters.has('verein')) {
+	else if (parameters.has(`verein`)) {
+		pageMetadata = vereinMetadata;
 		pageContent = vereinContent;
-		pageContent = vereinMetadata;
+		console.log("verein");
 	}
-	else if (parameters.has('kontakt')) {
+	else if (parameters.has(`kontakt`)) {
+		pageMetadata = kontaktMetadata;
 		pageContent = kontaktContent;
-		pageContent = kontaktMetadata;
+		console.log("kontakt");
 	} else {
 		pageMetadata = indexMetadata;
 		pageContent = indexContent;
@@ -93,7 +99,7 @@ async function loadPage() {
 	document.head.insertAdjacentHTML(`beforeend`, headContent);
 	document.body.insertAdjacentHTML(`beforeend`, bodyContent);
 
-	document.getElementById("test").innerText = version;
+	document.getElementById(`version`).innerText = version;
 }
 
 loadPage();
