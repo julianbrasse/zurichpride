@@ -1,6 +1,6 @@
 import { supabase } from "https://julianbrasse.github.io/zurichpride/scripts/supabase.js";
 
-let version = "0.1.4"
+let version = "Version 0.2.0"
 
 let pageMetadata;
 let pageContent;
@@ -52,18 +52,33 @@ async function loadPage() {
 	const parameters = new URLSearchParams(window.location.search);
 	await getElements();
 
-	pageMetadata = indexMetadata;
-	pageContent = indexContent;
-
 	if (parameters.has('demonstration')) {
 		pageMetadata = demonstrationMetadata;
 		pageContent = demonstrationContent;
 	}
-	else if (parameters.has('festival')) { pageContent = festivalHTML; }
-	else if (parameters.has('kalender')) { pageContent = kalenderHTML; }
-	else if (parameters.has('community')) { pageContent = communityHTML; }
-	else if (parameters.has('verein')) { pageContent = vereinHTML; }
-	else if (parameters.has('kontakt')) { pageContent = kontaktHTML; }
+	else if (parameters.has('festival')) {
+		pageMetadata = festivalMetadata;
+		pageContent = festivalContent;
+	}
+	else if (parameters.has('kalender')) {
+		pageContent = kalenderContent;
+		pageContent = kalenderMetadata;
+	}
+	else if (parameters.has('community')) {
+		pageContent = communityContent;
+		pageContent = communityMetadata;
+	}
+	else if (parameters.has('verein')) {
+		pageContent = vereinContent;
+		pageContent = vereinMetadata;
+	}
+	else if (parameters.has('kontakt')) {
+		pageContent = kontaktContent;
+		pageContent = kontaktMetadata;
+	} else {
+		pageMetadata = indexMetadata;
+		pageContent = indexContent;
+	}
 
 	let headContent = `
 		${pageMetadata}
@@ -77,6 +92,8 @@ async function loadPage() {
 
 	document.head.insertAdjacentHTML(`beforeend`, headContent);
 	document.body.insertAdjacentHTML(`beforeend`, bodyContent);
+
+	document.getElementById("test").innerText = version;
 }
 
 loadPage();
